@@ -9,6 +9,7 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -32,12 +33,24 @@ private void pause() {
 }
     private WebDriver driver;
 
-    @BeforeAll
+  @BeforeAll
 void setUp() {
     String browser = System.getProperty("browser", "chrome");
 
     if (browser.equalsIgnoreCase("firefox")) {
-        driver = new FirefoxDriver();
+        FirefoxOptions options = new FirefoxOptions();
+
+        options.setBinary(
+            "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+        );
+
+        // Enable headless mode only when requested
+        if (Boolean.getBoolean("headless")) {
+            options.addArguments("-headless");
+        }
+
+        driver = new FirefoxDriver(options);
+
     } else {
         driver = new ChromeDriver();
     }
