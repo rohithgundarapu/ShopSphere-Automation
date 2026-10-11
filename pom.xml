@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.shopsphere</groupId>
+    <artifactId>shopsphere-automation</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.11.4</junit.version>
+        <selenium.version>4.27.0</selenium.version>
+    </properties>
+
+    <dependencies>
+
+        <!-- Selenium WebDriver -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
+        <!-- JUnit 5 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <!-- Java compilation -->
+          <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <version>3.5.2</version>
+
+    <configuration>
+        <forkCount>1</forkCount>
+        <reuseForks>false</reuseForks>
+    </configuration>
+
+    <executions>
+        <execution>
+            <id>default-test</id>
+            <phase>none</phase>
+        </execution>
+
+        <execution>
+            <id>chrome-tests</id>
+            <phase>test</phase>
+            <goals>
+                <goal>test</goal>
+            </goals>
+            <configuration>
+                <systemPropertyVariables>
+                    <browser>chrome</browser>
+                </systemPropertyVariables>
+            </configuration>
+        </execution>
+
+        <execution>
+            <id>firefox-tests</id>
+            <phase>test</phase>
+            <goals>
+                <goal>test</goal>
+            </goals>
+            <configuration>
+                <systemPropertyVariables>
+                    <browser>firefox</browser>
+                </systemPropertyVariables>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+
+            <!-- Run automated tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.2</version>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
