@@ -98,13 +98,13 @@ void verifyProductsAreDisplayed() throws InterruptedException {
     List<WebElement> products =
         driver.findElements(By.cssSelector(".product-card"));
 
-    // Scroll down to the first product
-    ((org.openqa.selenium.JavascriptExecutor) driver)
-        .executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});",
-            products.get(0));
+    // Scroll the page without relying on a potentially stale element
+((JavascriptExecutor) driver).executeScript(
+    "window.scrollTo({top: document.body.scrollHeight / 2, behavior: 'auto'});"
+);
 
-    // Pause so you can see the scrolling
-    pause();
+// Pause so you can see the page
+pause();
 
     System.out.println("Products displayed: " + products.size());
 
